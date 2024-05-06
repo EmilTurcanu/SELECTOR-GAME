@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>INPUT GRADES</title>
+    <style>
+        #data_table {
+            margin: 10px 0 0 10px;
+            width: 200px;
+            height: 250px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input id="gradesInput" type="text" placeholder="enter grades by comma:...">
+        <button onclick="readData()">OK</button>
+        <div id="data_table"></div>
+    </div>
+    <script>
+        function readData () {
+            let data = gradesInput.value
+            processData(data)
+        }
+        function processData(data) {
+                let values = data.split(",")
+                let grades = []
+                for (let i = 0; i < values.length; i++) {
+                    let cells = values[i].split(":")
+                    let name = cells[0].trim()
+                    let grade = parseFloat(cells[1].trim())
+                    grades.push(
+                        {
+                            discipline: name,
+                            mark: grade
+                        }
+                    )
+                }
+                logData(grades)
+            }
+            function logData(data) {
+                let dates = ``
+                let note = 0
+                for (let i=0; i<data.length; i++) {
+                    note += data[i].mark
+                    let TotalNote = note / data.length
+                    let NoteRound = Math.round(TotalNote * 10) / 10
+                    dates += `Discipline: ${data[i].discipline}` + "<br/>" + `Note: ${data[i].mark}` + "<br/>"
+                    annual_note = `Annual note: ${NoteRound}`
+                }
+                data_table.innerHTML = dates + annual_note
+            }
+    </script>
+</body>
